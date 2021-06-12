@@ -9,8 +9,8 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -49,13 +49,15 @@ public class UserAccount implements Serializable, UserDetails {
     @Pattern(regexp = "^[A-Za-z\\ b]*$", message = "Invalid Input. Only latin alphabet.")
     private String lastName;
 
-    @Column(name = "user_status", length = 1, nullable = false)
-    private boolean userStatus;
+    @Column(name = "user_status", length = 1)
+    private Integer userStatus;
 
     @Column(name = "created_date")
-    private Date createdDate;
+    private Date createdDate = Date.valueOf(LocalDate.now());
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "user_account_role", joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private Set<Role> roles;
 
     @Override
@@ -102,7 +104,11 @@ public class UserAccount implements Serializable, UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        boolean statusUser = true;
+        if (getUserStatus() == 0) {
+            statusUser = false;
+        }
+        return statusUser;
     }
 
     @Override

@@ -81,4 +81,11 @@ public class UserAccountImpl implements UserAccountService, UserDetailsService {
         Pageable pageable = PageRequest.of(page - 1, pageSize, sort);
         return userRepository.findAll(pageable);
     }
+
+    @Override
+    public Page<UserAccount> getByInputText(String inputText, int page, int pageSize) {
+        Sort sort = Sort.by("username").ascending();
+        Pageable pageable = PageRequest.of(page - 1, pageSize, sort);
+        return userRepository.findByText(inputText, pageable);
+    }
 }

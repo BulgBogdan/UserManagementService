@@ -19,4 +19,6 @@ public interface UserAccountService {
 
     Page<UserAccount> findPaginated(int page, int pageSize);
 
+    Page<UserAccount> getByInputText(String inputText, int page, int pageSize);
+
 }
