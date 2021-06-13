@@ -41,6 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated().and()
                 .formLogin().loginPage("/login").permitAll()
                 .defaultSuccessUrl("/").permitAll()
+                .and().exceptionHandling().accessDeniedPage("/error")
                 .and().logout().logoutUrl("/logout").logoutSuccessUrl("/")
                 .invalidateHttpSession(true).clearAuthentication(true).permitAll();
 
