@@ -38,8 +38,16 @@ public class UserAccountImpl implements UserAccountService, UserDetailsService {
         if (Objects.nonNull(userFromDB)){
             return false;
         }
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
+        UserAccount userAccount = UserAccount.builder()
+                .username(user.getUsername())
+                .password(bCryptPasswordEncoder.encode(user.getPassword()))
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .createdDate(user.getCreatedDate())
+                .userStatus(user.getUserStatus())
+                .roles(user.getRoles())
+                .build();
+        userRepository.saveAndFlush(userAccount);
         return true;
     }
 

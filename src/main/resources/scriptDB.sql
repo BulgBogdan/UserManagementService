@@ -54,11 +54,11 @@ CREATE TABLE Persistent_Logins
   PRIMARY KEY (series)
 );
 
--- admin1
+-- password admin1
 insert into user_management.user_account (user_id, username, password, first_name, last_name, user_status)
 values (1, 'admin', '$2a$10$tENP2xX98u7P9oYhXTbYAuvRxppKxuCOLwMyNhJ6b0C2IszWtByLK', 'admin', 'admin', 1);
 
--- user1
+-- password user1
 insert into user_management.user_account (user_id, username, password, first_name, last_name, user_status)
 values (2, 'user', '$2a$10$juTILDKWiyru482x.xEiaOGRoKIbdcLeFDWWx7Hm8xQmoJKM./VD2', 'user', 'user', 1);
 

@@ -30,7 +30,6 @@ public class PersistenceConfiguration {
         dataSource.setDriverClassName(environment.getProperty("spring.datasource.driver-class-name"));
         dataSource.setUsername(environment.getProperty("spring.datasource.username"));
         dataSource.setPassword(environment.getProperty("spring.datasource.password"));
-        System.out.println("DataSource: " + dataSource);
         return dataSource;
     }
 
@@ -54,6 +53,8 @@ public class PersistenceConfiguration {
                 environment.getProperty("spring.jpa.properties.hibernate.dialect"));
         properties.put("hibernate.current_session_context_class",
                 environment.getProperty("spring.jpa.properties.hibernate.current_session_context_class"));
+        properties.put("javax.persistence.validation.mode",
+                environment.getProperty("spring.jpa.properties.javax.persistence.validation.mode"));
         return properties;
     }
 
